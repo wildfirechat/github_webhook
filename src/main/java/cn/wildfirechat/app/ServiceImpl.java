@@ -1,10 +1,7 @@
 package cn.wildfirechat.app;
 
 
-import cn.wildfirechat.app.pojo.Commit;
-import cn.wildfirechat.app.pojo.IssueEvent;
-import cn.wildfirechat.app.pojo.PushEvent;
-import cn.wildfirechat.app.pojo.StarEvent;
+import cn.wildfirechat.app.pojo.*;
 import cn.wildfirechat.common.ErrorCode;
 import cn.wildfirechat.pojos.*;
 import cn.wildfirechat.sdk.ChatConfig;
@@ -78,6 +75,18 @@ public class ServiceImpl implements Service {
                     message = "用户 " + starEvent.sender.login + " unstar 了工程 " + starEvent.repository.full_name + " \n";
                 }
                 message += "现有star数: " + starEvent.repository.stargazers_count;
+            } else if(event.equals("issue_comment")) {
+                IssueCommentEvent issueCommentEvent = IssueCommentEvent.fromJson(githubPayload);
+                if (issueCommentEvent.action.equals("created")) {
+                    message = "用户 " + issueCommentEvent.sender.login + " 评论了issue " + issueCommentEvent.repository.full_name + " : " + issueCommentEvent.issue.title +  " \n";
+                    message += "内容: " + issueCommentEvent.comment.body + " \n";
+                } else if (issueCommentEvent.action.equals("edited")) {
+                    message = "用户 " + issueCommentEvent.sender.login + " 修改了issue " + issueCommentEvent.repository.full_name + " : " + issueCommentEvent.issue.title +  " 的评论\n";
+                    message += "修改内容: " + issueCommentEvent.comment.body + " \n";
+                } else {
+                    message = "用户 " + issueCommentEvent.sender.login + " 删除了issue " + issueCommentEvent.repository.full_name + " 的评论\n";
+                }
+                message += "issue链接: " + issueCommentEvent.issue.html_url;
             }
         } catch (Exception e) {
             e.printStackTrace();
