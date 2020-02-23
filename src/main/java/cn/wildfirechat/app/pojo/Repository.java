@@ -7,7 +7,7 @@ public class Repository {
         public String node_id;
         public String name;
         public String full_name;
-        public Owner owner;
+        public User owner;
         public String html_url;
         public String description;
         public boolean fork;
@@ -48,9 +48,6 @@ public class Repository {
         public String labels_url;
         public String releases_url;
         public String deployments_url;
-        public Date created_at;
-        public Date updated_at;
-        public Date pushed_at;
         public String git_url;
         public String ssh_url;
         public String clone_url;

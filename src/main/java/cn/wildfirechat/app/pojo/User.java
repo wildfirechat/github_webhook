@@ -1,6 +1,6 @@
 package cn.wildfirechat.app.pojo;
 
-public class Owner {
+public class User {
     public String login;
     public long id;
     public String node_id;

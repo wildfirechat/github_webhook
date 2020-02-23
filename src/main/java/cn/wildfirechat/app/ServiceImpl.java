@@ -1,6 +1,10 @@
 package cn.wildfirechat.app;
 
 
+import cn.wildfirechat.app.pojo.Commit;
+import cn.wildfirechat.app.pojo.IssueEvent;
+import cn.wildfirechat.app.pojo.PushEvent;
+import cn.wildfirechat.app.pojo.StarEvent;
 import cn.wildfirechat.common.ErrorCode;
 import cn.wildfirechat.pojos.*;
 import cn.wildfirechat.sdk.ChatConfig;
@@ -52,8 +56,40 @@ public class ServiceImpl implements Service {
     public RestResult onReceivePayload(String event, String githubPayload) {
         LOG.info("on receive message {}", githubPayload);
 
-        if (sendMessage("你收到了一个github事件：" + event)) {
-            sendMessage(githubPayload);
+        String message = null;
+
+        try {
+            if (event.equals("push")) {
+                PushEvent pushEvent = PushEvent.fromJson(githubPayload);
+                message = "用户 " + pushEvent.pusher.name + " 在仓库 " + pushEvent.repository.full_name + " 提交了代码\n";
+                for (Commit commit : pushEvent.commits) {
+                    message += "提交描述: " + commit.message + " 修改代码: " + commit.url + " \n";
+                }
+            } else if(event.equals("issues")) {
+                IssueEvent issueEvent = IssueEvent.fromJson(githubPayload);
+                message = "用户 " + issueEvent.sender.login + " 在仓库 " + issueEvent.repository.full_name + " " + issueEvent.action + " issue\n";
+                message += issueEvent.issue.html_url + " \n";
+                message += issueEvent.issue.title + " : " + issueEvent.issue.body;
+            } else if(event.equals("star")) {
+                StarEvent starEvent = StarEvent.fromJson(githubPayload);
+                if (starEvent.action.equals("created")) {
+                    message = "用户 " + starEvent.sender.login + " star 了工程 " + starEvent.repository.full_name + " \n";
+                } else {
+                    message = "用户 " + starEvent.sender.login + " unstar 了工程 " + starEvent.repository.full_name + " \n";
+                }
+                message += "现有star数: " + starEvent.repository.stargazers_count;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            sendMessage("糟糕，处理github事件出错了：" + e.getMessage());
+        }
+
+        if (message == null) {
+            if (sendMessage("你收到了一个github事件：" + event)) {
+                sendMessage(githubPayload);
+            }
+        } else {
+            sendMessage(message);
         }
         return RestResult.ok();
     }
