@@ -87,6 +87,14 @@ public class ServiceImpl implements Service {
                     message = "用户 " + issueCommentEvent.sender.login + " 删除了issue " + issueCommentEvent.repository.full_name + " 的评论\n";
                 }
                 message += "issue链接: " + issueCommentEvent.issue.html_url;
+            } else if(event.equals("fork")) {
+                ForkEvent forkEvent = ForkEvent.fromJson(githubPayload);
+                if (forkEvent.forkee.fork) {
+                    message = "用户 " + forkEvent.sender.login + " fork 了工程 " + forkEvent.repository.full_name + " \n";
+                } else {
+                    message = "用户 " + forkEvent.sender.login + " unfork 了工程 " + forkEvent.repository.full_name + " \n";
+                }
+                message += "现有star数: " + forkEvent.repository.stargazers_count + "。 现在的fork数: " + forkEvent.repository.forks_count;
             }
         } catch (Exception e) {
             e.printStackTrace();
