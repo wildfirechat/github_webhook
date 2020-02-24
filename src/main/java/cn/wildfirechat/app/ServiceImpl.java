@@ -95,6 +95,9 @@ public class ServiceImpl implements Service {
                     message = "用户 " + forkEvent.sender.login + " unfork 了工程 " + forkEvent.repository.full_name + " \n";
                 }
                 message += "现有star数: " + forkEvent.repository.stargazers_count + "。 现在的fork数: " + forkEvent.repository.forks_count;
+            } else if(event.equals("watch")) {
+                WatchEvent watchEvent = WatchEvent.fromJson(githubPayload);
+                message = "用户 " + watchEvent.sender.login + " watch 了工程 " + watchEvent.repository.full_name + " \n";
             }
         } catch (Exception e) {
             e.printStackTrace();
