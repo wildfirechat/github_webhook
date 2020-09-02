@@ -98,6 +98,12 @@ public class ServiceImpl implements Service {
             } else if(event.equals("watch")) {
                 WatchEvent watchEvent = WatchEvent.fromJson(githubPayload);
                 message = "用户 " + watchEvent.sender.login + " watch 了工程 " + watchEvent.repository.full_name + " \n";
+            } else if(event.equals("ping")) {
+                PingEvent pingEvent = PingEvent.fromJson(githubPayload);
+                message = "Ping to " + pingEvent.repository.full_name;
+            } else if(event.equals("pull_request")) {
+                PullRequestEvent pullRequestEvent = PullRequestEvent.fromJson(githubPayload);
+                message = "User " + pullRequestEvent.sender.login + " pull request:" + pullRequestEvent.repository.full_name + "。\nTitle:" + pullRequestEvent.pull_request.title + "\nbody:" + pullRequestEvent.pull_request.body + "\nurl:" + pullRequestEvent.pull_request.html_url;
             }
         } catch (Exception e) {
             e.printStackTrace();

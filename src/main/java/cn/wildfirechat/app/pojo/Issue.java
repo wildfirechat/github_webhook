@@ -14,7 +14,6 @@ public class Issue {
     public String number;
     public String title;
     public User user;
-    public String[] labels;
     public String state;
     public boolean locked;
     public String assignee;
