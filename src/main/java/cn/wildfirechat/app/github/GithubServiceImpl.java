@@ -1,28 +1,23 @@
-package cn.wildfirechat.app;
+package cn.wildfirechat.app.github;
 
 
-import cn.wildfirechat.app.pojo.*;
+import cn.wildfirechat.app.GithubService;
+import cn.wildfirechat.app.RestResult;
+import cn.wildfirechat.app.github.pojo.*;
 import cn.wildfirechat.common.ErrorCode;
 import cn.wildfirechat.pojos.*;
 import cn.wildfirechat.sdk.ChatConfig;
 import cn.wildfirechat.sdk.RobotService;
 import cn.wildfirechat.sdk.model.*;
-import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import javax.validation.Payload;
-import java.util.Arrays;
-import java.util.concurrent.ConcurrentHashMap;
 
 @org.springframework.stereotype.Service
-public class ServiceImpl implements Service {
-    private static final Logger LOG = LoggerFactory.getLogger(ServiceImpl.class);
-    private static ConcurrentHashMap<String, Record> mRecords = new ConcurrentHashMap<>();
+public class GithubServiceImpl implements GithubService {
+    private static final Logger LOG = LoggerFactory.getLogger(GithubServiceImpl.class);
 
     @Value("${robot.im_id}")
     private String mRobotId;
@@ -51,7 +46,7 @@ public class ServiceImpl implements Service {
 //    int ConversationType_Thing = 4;
     @Override
     public RestResult onReceivePayload(String event, String githubPayload) {
-        LOG.info("on receive message {}", githubPayload);
+        LOG.info("on receive github message {}", githubPayload);
 
         String message = null;
 

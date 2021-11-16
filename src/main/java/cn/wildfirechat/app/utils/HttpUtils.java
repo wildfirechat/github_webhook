@@ -1,9 +1,8 @@
-package cn.wildfirechat.app;
+package cn.wildfirechat.app.utils;
 
 import cn.wildfirechat.sdk.model.IMResult;
 import com.google.gson.Gson;
 import ikidou.reflect.TypeBuilder;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;

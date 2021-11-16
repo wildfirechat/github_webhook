@@ -1,4 +1,4 @@
-package cn.wildfirechat.app.pojo;
+package cn.wildfirechat.app.github.pojo;
 
 import java.util.Date;
 

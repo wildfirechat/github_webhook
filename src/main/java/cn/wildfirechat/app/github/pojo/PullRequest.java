@@ -1,6 +1,4 @@
-package cn.wildfirechat.app.pojo;
-
-import java.util.Date;
+package cn.wildfirechat.app.github.pojo;
 
 public class PullRequest {
     public String html_url;

@@ -1,4 +1,4 @@
-package cn.wildfirechat.app.pojo;
+package cn.wildfirechat.app.github.pojo;
 
 public class Forkee {
     public long id;

@@ -1,6 +1,6 @@
-package cn.wildfirechat.app.pojo;
+package cn.wildfirechat.app.github.pojo;
 
-public class Sender {
+public class User {
     public String login;
     public long id;
     public String node_id;
@@ -18,5 +18,5 @@ public class Sender {
     public String events_url;
     public String received_events_url;
     public String type;
-    public boolean site_admin;
+    public String site_admin;
 }
