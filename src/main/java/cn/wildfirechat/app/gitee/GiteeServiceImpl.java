@@ -14,7 +14,6 @@ import cn.wildfirechat.sdk.ChatConfig;
 import cn.wildfirechat.sdk.RobotService;
 import cn.wildfirechat.sdk.model.IMResult;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
