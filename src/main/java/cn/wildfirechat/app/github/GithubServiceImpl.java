@@ -28,10 +28,10 @@ public class GithubServiceImpl implements GithubService {
     @Value("${robot.im_secret}")
     private String mRobotSecret;
 
-    @Value("${forward.conversation_type}")
+    @Value("${forward.github.conversation_type}")
     private int mFwdType;
 
-    @Value("${forward.conversation_target}")
+    @Value("${forward.github.conversation_target}")
     private String mFwdTarget;
 
     @PostConstruct

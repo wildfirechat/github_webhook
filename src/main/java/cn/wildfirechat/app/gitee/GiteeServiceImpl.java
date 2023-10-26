@@ -33,10 +33,10 @@ public class GiteeServiceImpl implements GiteeService {
     @Value("${robot.im_secret}")
     private String mRobotSecret;
 
-    @Value("${forward.conversation_type}")
+    @Value("${forward.gitee.conversation_type}")
     private int mFwdType;
 
-    @Value("${forward.conversation_target}")
+    @Value("${forward.gitee.conversation_target}")
     private String mFwdTarget;
 
     @PostConstruct
